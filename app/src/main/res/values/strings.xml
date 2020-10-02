@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">KatsuPay</string>
+    <string name="textview">TextView</string>
+    <string name="username">UserName</string>
+    <string name="userNameEdit">TextView</string>
+    <string name="ユーザ名の入力">●ユーザ名を入力してください．</string>
+    <string name="userName">UserName</string>
+    <string name="パスワードの入力">●パスワードを入力してください．</string>
+    <string name="password">Password</string>
+    <string name="サインイン用ボタン">サインイン</string>
+    <string name="signInResult1">TextView</string>
+    <string name="signInResult2">TextView</string>
+    <string name="signInLoad">データベースと通信しています...</string>
+    <string name="purchacehistory"><![CDATA[< 購入履歴 >]]></string>
+    <string name="purchacehistorytext">まだ購入履歴はありません．</string>
+    <string name="PurchaseReturnButton">戻る</string>
+    <string name="RIReturnButton">戻る</string>
+    <string name="RITitle"><![CDATA[< 登録情報 >]]></string>
+    <string name="ユーザ名">●ユーザ名</string>
+    <string name="MailAddress">●メールアドレス</string>
+    <string name="新規登録"><![CDATA[< 新規登録 >]]></string>
+    <string name="戻る">戻る</string>
+    <string name="EMail">E-MailAddress</string>
+    <string name="決定">決定</string>
+</resources>
