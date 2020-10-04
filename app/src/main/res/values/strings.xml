@@ -22,4 +22,9 @@
     <string name="戻る">戻る</string>
     <string name="EMail">E-MailAddress</string>
     <string name="決定">決定</string>
+    <string name="残高">残高：</string>
+    <string name="購入履歴">購入履歴</string>
+    <string name="登録情報">登録情報</string>
+    <string name="更新">更新</string>
+    <string name="再接続">再接続</string>
 </resources>

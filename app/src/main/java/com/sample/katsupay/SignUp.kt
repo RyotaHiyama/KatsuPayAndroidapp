@@ -1,5 +1,6 @@
 package com.sample.katsupay
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,13 +11,15 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_up)
 
+        val intent = Intent(this, SignInLayout::class.java)
+
         SignUpReturn.setOnClickListener {
-            finish()
+            startActivity(intent)
         }
 
         SignUpDecide.setOnClickListener {
             Toast.makeText(this, "登録完了（テスト）", Toast.LENGTH_LONG).show()
-            finish()
+            startActivity(intent)
         }
     }
 }
