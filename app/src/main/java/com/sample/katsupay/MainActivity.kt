@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        balance.text = "5,000円"
+        balance.text = getBalanceFromServer()
 
         purchaseHistoryButton.setOnClickListener {
             val intent = Intent(this, PurchaseHistory::class.java)
@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         update.setOnClickListener {
+            balance.text = getBalanceFromServer()
             Toast.makeText(this, "更新完了", Toast.LENGTH_LONG).show()
         }
 
@@ -36,5 +37,12 @@ class MainActivity : AppCompatActivity() {
 
     fun update() {
         /* DBから最新の情報を取得するためのメソッド */
+    }
+
+    fun getBalanceFromServer() :String? {
+        var commServer = CommServer(this)
+        commServer.setCommMode(CommServer.ACCOUNT)
+        commServer.execute(CommServer.UB)
+        return JsonParser.parse(commServer.get(), "balance")
     }
 }

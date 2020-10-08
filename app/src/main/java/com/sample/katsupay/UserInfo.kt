@@ -3,21 +3,25 @@ package com.sample.katsupay
 import java.util.Date
 
 open class UserInfo {
-    private var id:String // サーバアクセス用のID
-    private var userName:String // ユーザネーム
-    private var eMailAdd:String // Eメールアドレス
-    private var birthDay:Date // 生年月日
-    private var password:Password // パスワード
-    private var balance:String // 残高
-    private var purchaseHistory:String // 購入履歴
+    companion object {
+        lateinit var customer_id: String // サーバアクセス用のID
+        lateinit var email: String // Eメールアドレス
+        lateinit var purchaseHistory: String // 購入履歴
+        lateinit var birthday: String // 誕生日
+        private lateinit var balance: String // 残高
+        private lateinit var password: Password // パスワード
 
-    /* 登録情報の初期化 */
-    constructor(id:String, userName:String, eMailAdd:String, birthDayString:String,
-                password:String, balance:String, purchaseHistory: String) {
-        this.id = id;this.userName = userName;this.eMailAdd = eMailAdd
-        this.balance = balance;this.purchaseHistory = purchaseHistory
-        this.birthDay = birthDayStringToDate(birthDayString)
-        this.password = Password(password)
+        fun initPassword(pass:String) : Boolean {
+            if(::password.isInitialized) {
+                return false
+            } else {
+                password = Password(pass)
+                return true
+            }
+        }
+
+        fun getBalance() : String { return balance }
+        fun setBalance(balance:String) { this.balance = balance }
     }
 
     private fun birthDayStringToDate(birthDayString:String) :Date {

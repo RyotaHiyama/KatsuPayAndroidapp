@@ -35,6 +35,6 @@
                 android:textSize="20sp"
                 android:layout_height="match_parent"
                 android:id="@+id/textView6"
-                android:background="#19CDDC39"/>
+                android:background="#FFFFFF"/>
     </LinearLayout>
 </LinearLayout>
