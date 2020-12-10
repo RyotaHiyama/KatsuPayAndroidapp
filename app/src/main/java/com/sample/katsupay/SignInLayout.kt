@@ -17,12 +17,14 @@ class SignInLayout : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         /* テスト用のアカウント登録 */
-        UserInfo.customer_id = "1000001"
+//        UserInfo.customer_id = "1000001"
 //        UserInfo.customer_id = "1"
-        UserInfo.initPassword("customer1")
-        UserInfo.email = "customer1@yahoo.co.jp"
-        UserInfo.birthday = "2019-01-01"
+//        UserInfo.initPassword("*")
+//        UserInfo.email = "customer1@yahoo.co.jp"
+//        UserInfo.birthday = "2019-01-01"
     }
+
+
 
     private fun checkCorrectEntered(userName:String, password:String) : Boolean {
         Log.e(">>>","USERNAME:$userName, PASSWORD:$password")
@@ -40,7 +42,7 @@ class SignInLayout : AppCompatActivity() {
         }
 
         /* 半角英数字以外の文字が含まれている */
-        val regexAlphaNum = "^[A-Za-z0-9]+$"
+        val regexAlphaNum = "^[A-Za-z0-9]+$" //*以外の文字列でもパスワードを設定可能
         var p:Pattern = Pattern.compile(regexAlphaNum)
         var mUserName:Matcher = p.matcher(userName)
         var mPassword:Matcher = p.matcher(password)
@@ -65,7 +67,9 @@ class SignInLayout : AppCompatActivity() {
             val password = passwordEdit.text.toString()
             val userName = userNameEdit.text.toString()
             if(checkCorrectEntered(userName, password)) {
-                signIn(userName, password)
+                UserInfo.customer_id = userName
+                UserInfo.initPassword(password)
+                signIn()
             }
         }
 
@@ -80,11 +84,10 @@ class SignInLayout : AppCompatActivity() {
         }
     }
 
-    private fun signIn(id:String, pass:String){
-        UserInfo.customer_id = id
+    private fun signIn(){
 
         var commServer = CommServer(this)
-        commServer.setCommMode(CommServer.CUSTOMER)
+        commServer.setUrl(CommServer.LOGIN)
         commServer.execute(CommServer.UB)
 
         while(commServer.RESPONSE_CODE == -1) {
@@ -99,15 +102,13 @@ class SignInLayout : AppCompatActivity() {
         } else {
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
                 .setTitle("●サインイン失敗")
-                .setMessage("ユーザ名もしくはパスワードが間違っています")
+                .setMessage("ユーザ名もしくはパスワードが間違っています：${commServer.RESPONSE_CODE}")
                 .setPositiveButton("OK") { _, _ ->
                     // TODO:Yesが押された時の挙動
                 }
                 .show()
         }
     }
-
-
 
     private fun checkCommStatus() : Boolean {
         val cm = getSystemService(ConnectivityManager::class.java)

@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getBalanceFromServer() :String? {
         var commServer = CommServer(this)
-        commServer.setCommMode(CommServer.ACCOUNT)
+        commServer.setUrl(CommServer.GET_CUSTOMER_INFO)
         commServer.execute(CommServer.UB)
         return JsonParser.parse(commServer.get(), "balance")
     }

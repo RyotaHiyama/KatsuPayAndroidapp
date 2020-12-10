@@ -15,6 +15,10 @@ internal class Password {
         return false
     }
 
+    fun getPassword():String {
+        return this.password
+    }
+
     fun passwordReset(pass:String, newPass:String) : Boolean {
         if(authentication(pass)){
 //            return CommServer.passwordReset(newPass)

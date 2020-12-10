@@ -22,6 +22,7 @@ open class UserInfo {
 
         fun getBalance() : String { return balance }
         fun setBalance(balance:String) { this.balance = balance }
+        fun getPassword() : String { return password.getPassword() }
     }
 
     private fun birthDayStringToDate(birthDayString:String) :Date {
