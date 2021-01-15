@@ -1,7 +1,10 @@
 package com.sample.katsupay
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.sample.katsupay.datas.datas.UserInfo
 import kotlinx.android.synthetic.main.registration_information.*
 
 class RegistrationInformation : AppCompatActivity() {
@@ -12,7 +15,12 @@ class RegistrationInformation : AppCompatActivity() {
         userName.text = "   " + UserInfo.customer_id
         mailAddress.text = "   " + UserInfo.email
         var birthdaySplit = UserInfo.birthday.split("-")
-        birthday.text = "   ${birthdaySplit[0]}年${birthdaySplit[1]}月${birthdaySplit[2]}日"
+        try {
+            birthday.text = "   ${birthdaySplit[0]}年${birthdaySplit[1]}月${birthdaySplit[2]}日"
+        } catch( error:IndexOutOfBoundsException ){
+            Toast.makeText(this, "登録情報を正常に取得できませんでした", Toast.LENGTH_LONG).show()
+            finish()
+        }
 
         RIReturnButton.setOnClickListener {
             finish()

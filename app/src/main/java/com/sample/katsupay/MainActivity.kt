@@ -3,7 +3,11 @@ package com.sample.katsupay
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.sample.katsupay.communication.CommServer
+import com.sample.katsupay.datas.datas.UserInfo
+import com.sample.katsupay.signin_up.SignIn
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        balance.text = getBalanceFromServer()
+        balance.text = getBalanceFromServer() + " 円"
 
         purchaseHistoryButton.setOnClickListener {
             val intent = Intent(this, PurchaseHistory::class.java)
@@ -24,25 +28,43 @@ class MainActivity : AppCompatActivity() {
         }
 
         update.setOnClickListener {
-            balance.text = getBalanceFromServer()
+            balance.text = getBalanceFromServer() + " 円"
             Toast.makeText(this, "更新完了", Toast.LENGTH_LONG).show()
         }
 
         logout.setOnClickListener {
-            val intent = Intent(this, SignInLayout::class.java)
-            Toast.makeText(this, "ログアウトしました", Toast.LENGTH_LONG).show()
-            startActivity(intent)
+            AlertDialog.Builder(this)
+                .setMessage("ログアウトしてもよろしいですか？")
+                .setPositiveButton("YES") { _, _ ->
+                    UserInfo.delete()
+                    val intent = Intent(this, SignIn::class.java)
+                    Toast.makeText(this, "ログアウトしました", Toast.LENGTH_LONG).show()
+                    startActivity(intent)
+                }
+                .setNegativeButton("CANCEL") { _, _ -> }
+                .show()
         }
     }
 
-    fun update() {
-        /* DBから最新の情報を取得するためのメソッド */
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setMessage("ログアウトしてもよろしいですか？")
+            .setPositiveButton("YES") { _, _ ->
+                UserInfo.delete()
+                val intent = Intent(this, SignIn::class.java)
+                Toast.makeText(this, "ログアウトしました", Toast.LENGTH_LONG).show()
+                startActivity(intent)
+            }
+            .setNegativeButton("CANCEL") { _, _ -> }
+            .show()
     }
 
-    fun getBalanceFromServer() :String? {
-        var commServer = CommServer(this)
+    private fun getBalanceFromServer() : String? {
+        val commServer = CommServer()
         commServer.setUrl(CommServer.GET_CUSTOMER_INFO)
         commServer.execute(CommServer.UB)
-        return JsonParser.parse(commServer.get(), "balance")
+        while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
+        val balance = commServer.get()
+        return if(balance.isEmpty()) "0" else balance
     }
 }

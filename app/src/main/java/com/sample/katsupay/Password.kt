@@ -1,28 +1,21 @@
 package com.sample.katsupay
 
-internal class Password {
-    private lateinit var password:String
-
-    constructor(pass:String) {
-        this.password = pass
-    }
+internal class Password(pass: String) {
+    private var password:String = pass
 
     /* パスワード認証用メソッド */
-    private fun authentication(pass:String) : Boolean {
-        if(pass.equals(password)){
-            return true
-        }
-        return false
-    }
+//    private fun authentication(pass:String) : Boolean {
+//        return pass == password
+//    }
 
     fun getPassword():String {
         return this.password
     }
 
-    fun passwordReset(pass:String, newPass:String) : Boolean {
-        if(authentication(pass)){
-//            return CommServer.passwordReset(newPass)
-        }
-        return false
-    }
+//    fun passwordReset(pass:String, newPass:String) : Boolean {
+//        return if(authentication(pass)){
+//            this.password = newPass
+//            true
+//        } else false
+//    }
 }

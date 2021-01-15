@@ -1,8 +1,10 @@
-package com.sample.katsupay
+package com.sample.katsupay.datas
 
 import android.util.Log
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.sample.katsupay.datas.transData.Customer
+import com.sample.katsupay.datas.transData.Transaction
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -25,6 +27,15 @@ object JsonParser {
             val mapper = jacksonObjectMapper()
             val jObjList:List<Transaction> = mapper.readValue(str)
             return jObjList
+        }
+    }
+
+    fun customerParse(str:String) : Customer? {
+        return if(str == "") null
+        else {
+            val mapper = jacksonObjectMapper()
+            val customer:Customer = mapper.readValue(str)
+            customer
         }
     }
 }

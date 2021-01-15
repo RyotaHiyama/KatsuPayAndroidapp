@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="pYear" />
+    <item type="id" name="pMonth" />
+    <item type="id" name="pDay" />
+</resources>

@@ -1,7 +1,6 @@
-package com.sample.katsupay
+package com.sample.katsupay.datas.transData
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.sql.Timestamp
 
 data class Transaction(
     @JsonProperty("customerId")      val customerId:String,
