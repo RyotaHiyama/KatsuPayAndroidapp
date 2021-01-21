@@ -31,7 +31,15 @@ class SignIn : AppCompatActivity() {
             if(checkCorrectEntered(userName, password)) {
                 UserInfo.customer_id = userName
                 UserInfo.initPassword(password)
-                signIn()
+                try {
+                    signIn()
+                } catch(e:Exception) {
+                    AlertDialog.Builder(this)
+                        .setTitle("●サインイン失敗")
+                        .setMessage("サーバへアクセスできませんでした．ネットワーク環境を確認してください．")
+                        .setPositiveButton("OK") { _, _ -> }
+                        .show()
+                }
             }
         }
 
