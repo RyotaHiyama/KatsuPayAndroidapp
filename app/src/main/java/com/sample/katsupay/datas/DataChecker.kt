@@ -7,7 +7,7 @@ import java.time.YearMonth
 import java.util.regex.Pattern
 
 object DataChecker {
-    /* パスワードは8~12文字の制限でアルファベットos数字に限定 */
+    /* パスワードは8~12文字の英数字に制限 */
     fun isPassword(str:String, context:Context) : Boolean {
         if("*" in str) { // '*'は使用不可
             AlertDialog.Builder(context)
@@ -18,7 +18,7 @@ object DataChecker {
             return false
         }
 
-        val alpha = "[A-Za-z0-9]{8,12}"
+        val alpha = "[A-Za-z0-9]{8,12}" // 英数字8~12文字の制限
         val p = Pattern.compile(alpha)
         val m = p.matcher(str)
         return if(m.matches()) {
