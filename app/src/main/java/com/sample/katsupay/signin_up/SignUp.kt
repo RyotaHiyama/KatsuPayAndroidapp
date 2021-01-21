@@ -14,11 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentResult
 import com.sample.katsupay.*
 import com.sample.katsupay.communication.CommServer
+import com.sample.katsupay.datas.DataChecker
 import com.sample.katsupay.datas.datas.QRCodeData
 import com.sample.katsupay.datas.datas.UserInfo
 import kotlinx.android.synthetic.main.sign_up.*
 import java.net.HttpURLConnection
-import java.time.YearMonth
 import java.util.*
 
 class SignUp : AppCompatActivity() {
@@ -137,14 +137,7 @@ class SignUp : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 val decodeStuId = decode(studentId.contents)
-                if (!isStudentId(decodeStuId)) {
-                    QRCodeData.stuId = null
-                    Toast.makeText(this, "学籍番号のQRコードではありません", Toast.LENGTH_LONG).show()
-                    intent = Intent(this, SignIn::class.java)
-                    startActivity(intent)
-                } else {
-                    setId(studentId)
-                }
+                if (DataChecker.isUserId(decodeStuId, this)) setId(studentId)
             }
         }
     }
@@ -156,7 +149,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun checkData() : Int {
-        if(!checkMailAddress(emailAddress.text.toString())) {
+        if(!DataChecker.isMailAddress(emailAddress.text.toString(), this)) {
             return ERROR_MAIL_ADDRESS
         }
 
@@ -185,25 +178,7 @@ class SignUp : AppCompatActivity() {
             return false
         }
 
-        /* check number of char */
-        if(p1.length !in 8..12) {
-            AlertDialog.Builder(this)
-                .setTitle("パスワードの文字数制約")
-                .setMessage("パスワードの文字数は8~12文字で登録してください")
-                .setPositiveButton("OK"){ _, _ -> }
-                .show()
-            return false
-        }
-
-        /* it is not good that if include '*' */
-        if("*" in p1) {
-            AlertDialog.Builder(this)
-                .setTitle("パスワードに不適切な文字")
-                .setMessage("パスワードに*は使えません")
-                .setPositiveButton("OK"){ _, _ -> }
-                .show()
-            return false
-        }
+        DataChecker.isPassword(p1, this)
 
         return true
     }
@@ -213,37 +188,7 @@ class SignUp : AppCompatActivity() {
         val pMonth =  findViewById<NumberPicker>(R.id.pMonth)
         val pDays =  findViewById<NumberPicker>(R.id.pDay)
 
-        val yearMonthObject = YearMonth.of(pYear.displayedValues[pYear.value].toInt(), pMonth.displayedValues[pMonth.value].toInt())
-        val numOfDays = yearMonthObject.lengthOfMonth()
-
-        if(numOfDays < pDays.displayedValues[pDays.value].toInt()) {
-            AlertDialog.Builder(this)
-                .setTitle("不適切な誕生日")
-                .setMessage("存在しない日です")
-                .setPositiveButton("OK"){ _, _ -> }
-                .show()
-            return false
-        }
-
-        return true
-    }
-
-    private fun checkMailAddress(emailAddress:String) : Boolean {
-        /* include '@' */
-        if("@" !in emailAddress) {
-            AlertDialog.Builder(this)
-                .setTitle("不適切なメールアドレス")
-                .setMessage("メールアドレスを確認してください")
-                .setPositiveButton("OK"){ _, _ -> }
-                .show()
-            return false
-        }
-        return true
-    }
-
-    private fun isStudentId(id:String) : Boolean {
-        val regex = Regex("[0-9]{7}")
-        return regex.matches(id)
+        return DataChecker.isBirthDay(pYear, pMonth, pDays, this)
     }
 
     private fun setId(stuId:IntentResult) {

@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sample.katsupay.*
 import com.sample.katsupay.communication.CommServer
+import com.sample.katsupay.datas.DataChecker
 import com.sample.katsupay.datas.JsonParser
 import com.sample.katsupay.datas.datas.UserInfo
 import kotlinx.android.synthetic.main.sign_in.*
@@ -31,15 +32,7 @@ class SignIn : AppCompatActivity() {
             if(checkCorrectEntered(userName, password)) {
                 UserInfo.customer_id = userName
                 UserInfo.initPassword(password)
-                try {
-                    signIn()
-                } catch(e:Exception) {
-                    AlertDialog.Builder(this)
-                        .setTitle("●サインイン失敗")
-                        .setMessage("サーバへアクセスできませんでした．ネットワーク環境を確認してください．")
-                        .setPositiveButton("OK") { _, _ -> }
-                        .show()
-                }
+                signIn()
             }
         }
 
@@ -95,14 +88,14 @@ class SignIn : AppCompatActivity() {
             } else {
                 AlertDialog.Builder(this)
                     .setTitle("●サインイン失敗")
-                    .setMessage("ユーザ名もしくはパスワードが間違っています：${commServer.RESPONSE_CODE}")
+                    .setMessage("ユーザ名もしくはパスワードが間違っています")
                     .setPositiveButton("OK") { _, _ -> }
                     .show()
             }
         } else {
             AlertDialog.Builder(this)
                 .setTitle("●サインイン失敗")
-                .setMessage("ユーザ名もしくはパスワードが間違っています：${commServer.RESPONSE_CODE}")
+                .setMessage("ユーザ名もしくはパスワードが間違っています")
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
         }
@@ -129,19 +122,11 @@ class SignIn : AppCompatActivity() {
             return false
         }
 
-        /* 半角英数字以外の文字が含まれている */
-        val regexAlphaNum = "^[A-Za-z0-9]+$" //*以外の文字列でもパスワードを設定可能
-        val p:Pattern = Pattern.compile(regexAlphaNum)
-        val mUserName:Matcher = p.matcher(userName)
-        val mPassword:Matcher = p.matcher(password)
-        if(!mUserName.matches() || !mPassword.matches()){
-            AlertDialog.Builder(this)
-                .setTitle("●サインイン失敗")
-                .setMessage("半角英数字以外の文字が含まれています")
-                .setPositiveButton("OK") { _, _ -> }
-                .show()
-            return false
-        }
+        /* ユーザ名の確認 */
+        if(!DataChecker.isUserId(userName, this)) return false
+
+        /* パスワードの確認 */
+        if(!DataChecker.isPassword(password, this)) return false
         return true
     }
 }

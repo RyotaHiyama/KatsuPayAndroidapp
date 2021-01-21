@@ -14,7 +14,7 @@ import java.net.URL
 
 class CommServer : AsyncTask<Uri.Builder, Void, String>() {
     companion object {
-        const val TIMEOUT_MILLIS = 20000// タイムアウトミリ秒：0は無限
+        const val TIMEOUT_MILLIS = 5000// タイムアウトまで5秒
 
         const val CUSTOMER = "customer"
         const val ACCOUNT = "account"
@@ -46,7 +46,12 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
     }
 
     override fun doInBackground(vararg builder: Uri.Builder): String {
-        return get("127.0.0.1", "UTF-8")
+        return try {
+            get("127.0.0.1", "UTF-8")
+        } catch(e:Exception) {
+            RESPONSE_CODE = -2 // timeout
+            ""
+        }
     }
 
     fun setUrl(mode:Int) {
