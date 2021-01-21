@@ -74,8 +74,7 @@ class SignUp : AppCompatActivity() {
                     .setMessage("アカウント登録を完了しますか？")
                     .setPositiveButton("確定"){ _, _ ->
                         setUserInfo()
-                        signUp()
-                        startActivity(signIn)
+                        if(signUp()) startActivity(signIn)
                     }
                     .setNegativeButton("戻る"){ _, _ -> }
                     .show()
@@ -95,7 +94,7 @@ class SignUp : AppCompatActivity() {
         return commServer.RESPONSE_CODE == 404
     }
 
-    private fun signUp() {
+    private fun signUp() : Boolean {
         val commServer = CommServer()
         commServer.setUrl(CommServer.SIGN_UP)
         commServer.execute(CommServer.UB)
@@ -105,9 +104,22 @@ class SignUp : AppCompatActivity() {
         }
 
         if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK) {
-            Toast.makeText(this, "登録完了", Toast.LENGTH_LONG).show()
+            val response = commServer.get()
+            return if(response == null) {
+                Toast.makeText(this, "登録できませんでした", Toast.LENGTH_LONG).show()
+                false
+            } else {
+                if(response.toBoolean()) {
+                    Toast.makeText(this, "登録完了", Toast.LENGTH_LONG).show()
+                    true
+                } else {
+                    Toast.makeText(this, "登録できませんでした", Toast.LENGTH_LONG).show()
+                    false
+                }
+            }
         } else {
             Toast.makeText(this, "登録できませんでした", Toast.LENGTH_LONG).show()
+            return false
         }
     }
 
