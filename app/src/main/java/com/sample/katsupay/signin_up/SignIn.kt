@@ -1,5 +1,6 @@
 package com.sample.katsupay.signin_up
 
+import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -86,19 +87,19 @@ class SignIn : AppCompatActivity() {
                     startActivity(intent)
                 }
             } else {
-                AlertDialog.Builder(this)
-                    .setTitle("●サインイン失敗")
-                    .setMessage("ユーザ名もしくはパスワードが間違っています")
-                    .setPositiveButton("OK") { _, _ -> }
-                    .show()
+                incorrectSignIn(this)
             }
         } else {
-            AlertDialog.Builder(this)
-                .setTitle("●サインイン失敗")
-                .setMessage("ユーザ名もしくはパスワードが間違っています")
-                .setPositiveButton("OK") { _, _ -> }
-                .show()
+            incorrectSignIn(this)
         }
+    }
+
+    private fun incorrectSignIn(context:Context) {
+        AlertDialog.Builder(context)
+            .setTitle("●サインイン失敗")
+            .setMessage("ユーザ名もしくはパスワードが間違っています")
+            .setPositiveButton("OK") { _, _ -> }
+            .show()
     }
 
     private fun checkCommStatus() : Boolean {
