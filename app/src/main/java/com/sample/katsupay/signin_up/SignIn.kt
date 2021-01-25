@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -33,7 +34,9 @@ class SignIn : AppCompatActivity() {
             if(checkCorrectEntered(userName, password)) {
                 UserInfo.customer_id = userName
                 UserInfo.initPassword(password)
-                signIn()
+                if(!signIn()) {
+                    passwordEdit.text.clear()
+                }
             }
         }
 
@@ -57,7 +60,7 @@ class SignIn : AppCompatActivity() {
         /* do nothing */
     }
 
-    private fun signIn() {
+    private fun signIn() : Boolean {
         val commServer = CommServer()
         commServer.setUrl(CommServer.LOGIN)
         commServer.execute(CommServer.UB)
@@ -65,7 +68,7 @@ class SignIn : AppCompatActivity() {
         while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
 
         if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK) {
-            val response = commServer.get() ?: return
+            val response = commServer.get() ?: return false
 //            if(response == null) {
 //                AlertDialog.Builder(this)
 //                    .setTitle("●サインイン失敗")
@@ -78,19 +81,23 @@ class SignIn : AppCompatActivity() {
             Log.i("RETURN VALUE FROM SERVER", " VALUE: $response")
             if(response != "null") {
                 val customer = JsonParser.customerParse(response)
-                if(customer == null) {
+                return if(customer == null) {
                     Toast.makeText(this, "ログインの際にサーバから予期せぬメッセージを受信しました", Toast.LENGTH_LONG).show()
+                    false
                 } else {
                     UserInfo.initialize(customer)
                     Toast.makeText(this, "${UserInfo.customer_id}さん ようこそ！", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    true
                 }
             } else {
                 incorrectSignIn(this)
+                return false
             }
         } else {
             incorrectSignIn(this)
+            return false
         }
     }
 
