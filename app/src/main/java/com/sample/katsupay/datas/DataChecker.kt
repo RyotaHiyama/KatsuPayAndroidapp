@@ -18,7 +18,7 @@ object DataChecker {
             return false
         }
 
-        val alpha = "[A-Za-z0-9]{8,12}" // 英数字8~12文字の制限
+        val alpha = "[A-Za-z0-9]{8,40}" // 英数字8~12文字の制限
         val p = Pattern.compile(alpha)
         val m = p.matcher(str)
         return if(m.matches()) {
@@ -26,7 +26,7 @@ object DataChecker {
         } else {
             AlertDialog.Builder(context)
                 .setTitle("●サインイン失敗")
-                .setMessage("パスワードは英数字8~12文字で入力してください")
+                .setMessage("パスワードは英数字8~40文字で入力してください")
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
             false

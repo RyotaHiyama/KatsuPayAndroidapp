@@ -125,7 +125,7 @@
                     android:layout_height="match_parent">
 
                 <TextView
-                        android:text="●パスワード（8~12文字）"
+                        android:text="●パスワード（8~40文字）"
                         android:textSize="20sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

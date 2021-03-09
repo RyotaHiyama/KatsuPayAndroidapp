@@ -74,7 +74,10 @@ class SignUp : AppCompatActivity() {
                     .setMessage("アカウント登録を完了しますか？")
                     .setPositiveButton("確定"){ _, _ ->
                         setUserInfo()
-                        if(signUp()) startActivity(signIn)
+                        if(signUp()){
+                            UserInfo.delete()
+                            startActivity(signIn)
+                        }
                     }
                     .setNegativeButton("戻る"){ _, _ -> }
                     .show()
