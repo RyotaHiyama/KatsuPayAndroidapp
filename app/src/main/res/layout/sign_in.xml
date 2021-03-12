@@ -97,6 +97,15 @@
                     android:backgroundTint="#B9DEE4"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+            <Button
+                    android:text="@string/在庫情報"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/store_stock"
+                    android:background="#E4B6C6"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
         </LinearLayout>
 
     </LinearLayout>

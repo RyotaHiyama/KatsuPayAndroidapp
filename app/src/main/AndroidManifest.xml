@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.sample.katsupay">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.sample.katsupay">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher_version2_foreground"
@@ -13,29 +15,27 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".StoreStock"></activity>
         <activity android:name=".signin_up.SignIn">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-        </activity>
-        <activity android:name=".PurchaseHistory">
-        </activity>
-        <activity android:name=".RegistrationInformation">
-        </activity>
-        <activity android:name=".signin_up.SignUp">
-        </activity>
-        <activity android:name=".Reconnect">
-        </activity>
-        <activity android:name=".signin_up.ScanQRCode"
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".PurchaseHistory"></activity>
+        <activity android:name=".RegistrationInformation"></activity>
+        <activity android:name=".signin_up.SignUp"></activity>
+        <activity android:name=".Reconnect"></activity>
+        <activity
+                android:name=".signin_up.ScanQRCode"
                 android:screenOrientation="portrait"
                 android:stateNotNeeded="true"
-                android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-        <activity android:name=".ContactUs">
-        </activity>
+                android:windowSoftInputMode="stateAlwaysHidden"></activity>
+        <activity android:name=".ContactUs"></activity>
+        <activity android:name=".StoreStock"
+                tools:ignore="DuplicateActivity"></activity>
     </application>
+
 </manifest>

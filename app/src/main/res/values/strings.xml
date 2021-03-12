@@ -27,4 +27,6 @@
     <string name="登録情報">登録情報</string>
     <string name="更新">更新</string>
     <string name="再接続">再接続</string>
+    <string name="在庫情報">在庫情報</string>
+    <string name="在庫情報なし">在庫情報がありません</string>
 </resources>

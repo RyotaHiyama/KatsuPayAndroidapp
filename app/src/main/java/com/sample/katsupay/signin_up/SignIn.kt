@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -16,8 +15,6 @@ import com.sample.katsupay.datas.JsonParser
 import com.sample.katsupay.datas.datas.UserInfo
 import kotlinx.android.synthetic.main.sign_in.*
 import java.net.HttpURLConnection
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 
 class SignIn : AppCompatActivity() {
@@ -48,6 +45,11 @@ class SignIn : AppCompatActivity() {
         contact.setOnClickListener {
             val cu = Intent(this, ContactUs::class.java)
             startActivity(cu)
+        }
+
+        store_stock.setOnClickListener {
+            val ss =Intent(this,StoreStock::class.java)
+            startActivity(ss)
         }
 
         if(!checkCommStatus()) {

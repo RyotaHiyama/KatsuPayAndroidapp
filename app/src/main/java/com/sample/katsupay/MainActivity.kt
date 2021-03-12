@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        SSbutton.setOnClickListener {
+            val ss = Intent(this,StoreStock::class.java)
+            startActivity(ss)
+        }
+
         update.setOnClickListener {
             balance.text = getBalanceFromServer() + " 円"
             Toast.makeText(this, "更新完了", Toast.LENGTH_LONG).show()
