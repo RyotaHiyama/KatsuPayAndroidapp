@@ -11,5 +11,6 @@ class StoreStock : AppCompatActivity() {
         StoStockReturnButton.setOnClickListener{
             finish()
         }
+        stockinfo.textSize = 200F  //scroll test
     }
 }

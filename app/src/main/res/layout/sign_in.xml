@@ -66,7 +66,7 @@
                 android:id="@+id/signIn"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:background="#81FFC107" />
+                android:backgroundTint="#81FFC107" />
 
         <TextView
                 android:text=""
@@ -81,7 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/SignUpButton"
-                android:background="#438BC34A" />
+                android:backgroundTint="#438BC34A" />
 
         <LinearLayout
                 android:orientation="vertical"
@@ -90,7 +90,7 @@
                 android:gravity="bottom">
 
             <Button
-                    android:text="Contact Us"
+                    android:text="@string/contact"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/contact"
@@ -103,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/store_stock"
-                    android:background="#E4B6C6"
+                    android:backgroundTint="#E4B6C6"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
         </LinearLayout>
