@@ -1,14 +1,11 @@
 package com.sample.katsupay
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.ContentLoadingProgressBar
 import com.sample.katsupay.communication.CommServer
-import com.sample.katsupay.datas.JsonParser
+import com.sample.katsupay.data.JsonParser
 import kotlinx.android.synthetic.main.purchase_history.*
 import java.net.HttpURLConnection
 

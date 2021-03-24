@@ -4,8 +4,9 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.sample.katsupay.datas.datas.UserInfo
-import com.sample.katsupay.datas.transData.Customer
+import com.sample.katsupay.data.data.StoreInfo
+import com.sample.katsupay.data.data.UserInfo
+import com.sample.katsupay.data.transData.Customer
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -19,19 +20,26 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
         const val CUSTOMER = "customer"
         const val ACCOUNT = "account"
         const val TRANSACTION = "transaction"
+        const val STORE = "store"
+        const val PRODUCT = "product"
+
         const val GET = "GET"
         const val POST = "POST"
+
         const val LOGIN = 0
         const val GET_CUSTOMER_INFO = 1
         const val GET_PURCHASE = 2
         const val SIGN_UP = 3
         const val GET_ACCOUNT_INFO = 4
+        const val GET_STOCK_INFO = 5
+        const val GET_STORE_INFO = 6
+
         val UB:Uri.Builder = Uri.Builder()
     }
-    private val ipAddress = "165.242.108.54"
-    private val port = "8090"
-//    private val ipAddress = "10.0.2.2" //androidエミュレータからホストに対するアドレス
-//    private val port = "8080" //androidエミュレータとホスト間で通信する時のデフォルトポート
+//    private val ipAddress = "165.242.108.54"
+//    private val port = "8090"
+    private val ipAddress = "10.0.2.2" //androidエミュレータからホストに対するアドレス
+    private val port = "8080" //androidエミュレータとホスト間で通信する時のデフォルトポート
     private var REQUEST = ""
     private var URL = ""
     private var postData = ""
@@ -62,22 +70,34 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
                 postData = jacksonObjectMapper().writeValueAsString(Customer.getUserInfoAsCustomer())
             }
             GET_CUSTOMER_INFO -> {
+                UserInfo.customer_id ?: return
                 setRequest(GET)
                 URL = "http://$ipAddress:$port/$ACCOUNT/balance/${UserInfo.customer_id}"
 //                postData = jacksonObjectMapper().writeValueAsString(Customer.getUserInfoAsCustomer())
             }
             GET_ACCOUNT_INFO -> {
+                UserInfo.customer_id ?: return
                 setRequest(GET)
                 URL = "http://$ipAddress:$port/$CUSTOMER/${UserInfo.customer_id}"
             }
             GET_PURCHASE -> {
+                UserInfo.customer_id ?: return
                 setRequest(GET)
                 URL = "http://$ipAddress:$port/$TRANSACTION/$CUSTOMER/${UserInfo.customer_id}"
             }
             SIGN_UP -> {
+                UserInfo.customer_id ?: return
                 setRequest(POST)
                 URL = "http://$ipAddress:$port/$CUSTOMER/signup/${UserInfo.customer_id}"
                 postData = jacksonObjectMapper().writeValueAsString(Customer.getUserInfoAsCustomer())
+            }
+            GET_STOCK_INFO -> {
+                setRequest(GET)
+                URL = "http://$ipAddress:$port/$PRODUCT/${StoreInfo.storeId}"
+            }
+            GET_STORE_INFO -> {
+                setRequest(GET)
+                URL = "http://$ipAddress:$port/$STORE/all"
             }
         }
     }

@@ -15,7 +15,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".StoreStock"></activity>
+        <activity android:name=".AllStores"></activity>
+        <activity android:name=".StoreStock" />
         <activity android:name=".signin_up.SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,19 +24,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".PurchaseHistory"></activity>
-        <activity android:name=".RegistrationInformation"></activity>
-        <activity android:name=".signin_up.SignUp"></activity>
-        <activity android:name=".Reconnect"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".PurchaseHistory" />
+        <activity android:name=".RegistrationInformation" />
+        <activity android:name=".signin_up.SignUp" />
+        <activity android:name=".Reconnect" />
         <activity
                 android:name=".signin_up.ScanQRCode"
                 android:screenOrientation="portrait"
                 android:stateNotNeeded="true"
-                android:windowSoftInputMode="stateAlwaysHidden"></activity>
-        <activity android:name=".ContactUs"></activity>
-        <activity android:name=".StoreStock"
-                tools:ignore="DuplicateActivity"></activity>
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".ContactUs" />
+        <activity
+                android:name=".StoreStock"
+                tools:ignore="DuplicateActivity" />
+        <activity android:name=".AllStores"
+                tools:ignore="DuplicateActivity" />
     </application>
 
 </manifest>

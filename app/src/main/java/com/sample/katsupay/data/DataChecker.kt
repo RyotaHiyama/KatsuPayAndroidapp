@@ -1,4 +1,4 @@
-package com.sample.katsupay.datas
+package com.sample.katsupay.data
 
 import android.content.Context
 import android.widget.NumberPicker

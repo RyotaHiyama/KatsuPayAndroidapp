@@ -1,7 +1,7 @@
-package com.sample.katsupay.datas.datas
+package com.sample.katsupay.data.data
 
 import com.sample.katsupay.Password
-import com.sample.katsupay.datas.transData.Customer
+import com.sample.katsupay.data.transData.Customer
 
 open class UserInfo {
     companion object {

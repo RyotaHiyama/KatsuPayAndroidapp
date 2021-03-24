@@ -2,9 +2,8 @@ package com.sample.katsupay
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.katsupay.datas.datas.UserInfo
+import com.sample.katsupay.data.data.UserInfo
 import kotlinx.android.synthetic.main.registration_information.*
 
 class RegistrationInformation : AppCompatActivity() {

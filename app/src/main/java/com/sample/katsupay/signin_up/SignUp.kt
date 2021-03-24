@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentResult
 import com.sample.katsupay.*
 import com.sample.katsupay.communication.CommServer
-import com.sample.katsupay.datas.DataChecker
-import com.sample.katsupay.datas.datas.QRCodeData
-import com.sample.katsupay.datas.datas.UserInfo
+import com.sample.katsupay.data.DataChecker
+import com.sample.katsupay.data.data.QRCodeData
+import com.sample.katsupay.data.data.UserInfo
 import kotlinx.android.synthetic.main.sign_up.*
 import java.net.HttpURLConnection
 import java.util.*

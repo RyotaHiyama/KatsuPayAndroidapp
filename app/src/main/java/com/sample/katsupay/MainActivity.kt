@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sample.katsupay.communication.CommServer
-import com.sample.katsupay.datas.datas.UserInfo
+import com.sample.katsupay.data.data.UserInfo
 import com.sample.katsupay.signin_up.SignIn
 import kotlinx.android.synthetic.main.main_activity.*
 

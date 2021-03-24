@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import com.sample.katsupay.R
-import com.sample.katsupay.datas.datas.QRCodeData
+import com.sample.katsupay.data.data.QRCodeData
 
 class ScanQRCode : AppCompatActivity() {
     companion object {

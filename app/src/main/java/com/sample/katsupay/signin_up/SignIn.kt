@@ -10,9 +10,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.sample.katsupay.*
 import com.sample.katsupay.communication.CommServer
-import com.sample.katsupay.datas.DataChecker
-import com.sample.katsupay.datas.JsonParser
-import com.sample.katsupay.datas.datas.UserInfo
+import com.sample.katsupay.data.DataChecker
+import com.sample.katsupay.data.JsonParser
+import com.sample.katsupay.data.data.UserInfo
 import kotlinx.android.synthetic.main.sign_in.*
 import java.net.HttpURLConnection
 
@@ -48,8 +48,8 @@ class SignIn : AppCompatActivity() {
         }
 
         store_stock.setOnClickListener {
-            val ss =Intent(this,StoreStock::class.java)
-            startActivity(ss)
+            val alstores =Intent(this,AllStores::class.java)
+            startActivity(alstores)
         }
 
         if(!checkCommStatus()) {
@@ -80,11 +80,11 @@ class SignIn : AppCompatActivity() {
 //                return
 //            }
 
-            Log.i("RETURN VALUE FROM SERVER", " VALUE: $response")
-            if(response != "null") {
-                val customer = JsonParser.customerParse(response)
-                return if(customer == null) {
-                    Toast.makeText(this, "ログインの際にサーバから予期せぬメッセージを受信しました", Toast.LENGTH_LONG).show()
+                    Log.i("RETURN VALUE FROM SERVER", " VALUE: $response")
+                    if(response != "null") {
+                        val customer = JsonParser.customerParse(response)
+                        return if(customer == null) {
+                            Toast.makeText(this, "ログインの際にサーバから予期せぬメッセージを受信しました", Toast.LENGTH_LONG).show()
                     false
                 } else {
                     UserInfo.initialize(customer)
