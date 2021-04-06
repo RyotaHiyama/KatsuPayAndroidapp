@@ -29,6 +29,9 @@
     <string name="再接続">再接続</string>
     <string name="在庫情報">在庫情報</string>
     <string name="在庫情報なし">在庫情報がありません</string>
+    <string name="在庫ありのみを表示">在庫ありのみを表示</string>
     <string name="contact">contact us</string>
     <string name="店舗一覧">店舗一覧</string>
+    <string name="検索なし">該当データがありません</string>
+    <string name="検索">商品名を検索</string>
 </resources>

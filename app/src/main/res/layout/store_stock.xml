@@ -53,12 +53,22 @@
             android:layout_height="match_parent"
             android:layout_marginTop="35dp">
 
-        <TextView
-                android:text="@string/在庫情報なし"
-                android:textSize="25sp"
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/stockinfo" />
+                android:weightSum="3"
+                android:id="@+id/ll">
+
+            <TextView
+                    android:text="@string/在庫情報なし"
+                    android:textSize="25sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/stockinfo"
+                    android:layout_weight="2" />
+
+        </LinearLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,7 +67,7 @@ class AllStores : AppCompatActivity() {
         while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
 
         if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK){
-            Log.i("products>>>", commServer.get())
+            Log.i("AllStores>>>", commServer.get())
             return commServer.get()
         } else {
             AlertDialog.Builder(this)

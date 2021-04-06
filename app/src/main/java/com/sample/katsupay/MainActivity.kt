@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         SSbutton.setOnClickListener {
-            val ss = Intent(this,StoreStock::class.java)
-            startActivity(ss)
+            val alstores =Intent(this,AllStores::class.java)
+            startActivity(alstores)
         }
 
         update.setOnClickListener {

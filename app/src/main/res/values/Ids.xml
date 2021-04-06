@@ -3,4 +3,5 @@
     <item type="id" name="pYear" />
     <item type="id" name="pMonth" />
     <item type="id" name="pDay" />
+    <item name="stock_search" type="id" />
 </resources>

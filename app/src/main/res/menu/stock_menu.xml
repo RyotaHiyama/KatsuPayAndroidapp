@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+            android:title="@string/在庫ありのみを表示"
+            app:actionViewClass="android.widget.Button"
+            android:id="@+id/search_switch"/>
+    <item
+            android:id="@+id/stock_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Search"
+            app:actionViewClass="android.widget.SearchView"
+            app:showAsAction="always"/>
+
+
+
+<!--    <item-->
+<!--            android:id="@+id/search_switch"-->
+<!--            android:title="Switch"-->
+<!--            app:actionViewClass="android.widget.Switch"-->
+<!--            app:showAsAction="always"/>-->
+
+
+</menu>

@@ -10,5 +10,7 @@ data class Product(
     @JsonProperty("stock")      var stock:Int,
     @JsonProperty("productInfo")var product_info:String
 ) {
-
+    fun getProductString() : String {
+        return name
+    }
 }
