@@ -1,6 +1,6 @@
 package com.sample.katsupay
 
-import android.content.ClipData
+import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -19,10 +21,19 @@ import kotlinx.android.synthetic.main.store_stock.*
 import java.net.HttpURLConnection
 
 class StoreStock : AppCompatActivity() {
+    companion object{
+        const val PRODUCTNAME    = 0
+        const val CHEAPPRICE     = 1
+        const val EXPENSIVEPRICE = 2
+    }
     private var products:List<Product>? = arrayListOf()
     private var showStocks:Boolean = false
     private var skeyword:String = ""
-    private var onlystock:Boolean = true
+    private var sortmode:Int = PRODUCTNAME
+
+
+
+//    private val spinnerItems = arrayOf("商品名","値段が安い順","値段が高い順")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +59,8 @@ class StoreStock : AppCompatActivity() {
                     .show()
             }
 
-            makeScreen(products!!,showStocks)
+//            makeScreen(products!!,showStocks)
+            pullDownMenu()
         }
 
 
@@ -83,15 +95,33 @@ class StoreStock : AppCompatActivity() {
             Stock <= 0 -> {
                 "<big><font color=\"red\">×</font></big>"
             }
-            Stock <= 3 -> "<big><font color=#ffa500>△</font></big>"
-            else       -> "〇"
+            Stock <= 3 -> {
+                "<big><font color=#ffa500>△</font></big>"
+            }
+            else       -> {
+                "〇"
+            }
         }
     }
 
-    fun productsFilter(products: List<Product>, keyword: String) : List<Product>? {
-        val hitProducts:MutableList<Product> = arrayListOf()
+    private fun sortFiler(products: List<Product>, mode: Int): List<Product>? {
+        return when (mode) {
+            PRODUCTNAME -> {
+                products
+            }
+            CHEAPPRICE -> {
+                priceSort(products)
+            }
+            EXPENSIVEPRICE -> {
+                priceSort(products).reversed()
+            }
+            else -> null
+        }
+    }
 
-        if (keyword.isEmpty()) return products
+    fun productsFilter(products: List<Product>, keyword: String, mode: Int) : List<Product>? {
+        val hitProducts:MutableList<Product> = arrayListOf()
+        if (keyword.isEmpty()) return sortFiler(products, mode)
 
         for(p in products) {
             if(p.getProductString().contains(keyword)){
@@ -100,8 +130,9 @@ class StoreStock : AppCompatActivity() {
             }
         }
 
+
         return if(hitProducts.isEmpty()) null
-        else hitProducts
+        else sortFiler(hitProducts, mode)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -119,7 +150,7 @@ class StoreStock : AppCompatActivity() {
                 if (newText != null) {
                     skeyword = newText
                     Log.i("if>>>",newText)
-                    makeScreen(productsFilter(products!!, skeyword),showStocks)
+                    makeScreen(productsFilter(products!!, skeyword, sortmode),showStocks)
                 }
 
                 return false
@@ -144,19 +175,14 @@ class StoreStock : AppCompatActivity() {
         stockinfo.typeface = Typeface.DEFAULT_BOLD
         var text = ""
         products.forEach{
-            if (mode) {
-                if (it.on_sale.toBoolean() && it.stock > 0 ){
-                    text = "${text}商品名：${it.name}<br>"
-                    text = "${text}値段：${it.price}<br>"
-                    text = "${text}在庫：" + judgeStock(it.stock) + "<br><br>"
-                }
-            } else {
-                if (it.on_sale.toBoolean()){
-                    text = "${text}商品名：${it.name}<br>"
-                    text = "${text}値段：${it.price}<br>"
-                    text = "${text}在庫：" + judgeStock(it.stock) + "<br><br>"
-                }
+            var oneStockText = ""
+            if (it.on_sale.toBoolean()){
+                oneStockText = "${oneStockText}商品名：${it.name}<br>"
+                oneStockText = "${oneStockText}値段：${it.price}<br>"
+                oneStockText = "${oneStockText}在庫：" + judgeStock(it.stock) + "<br><br>"
             }
+            text += if (mode && it.stock <= 0) "" else oneStockText
+
         }
         stockinfo.text = Html.fromHtml(text)
     }
@@ -165,26 +191,63 @@ class StoreStock : AppCompatActivity() {
 
         when(item.itemId){
             R.id.search_switch -> {
-                if(onlystock){
+                if(showStocks){
                     //On
-                    Log.i("on",onlystock.toString())
-                    Toast.makeText(this,"在庫ありのみを表示", Toast.LENGTH_SHORT).show()
-                    onlystock = false
-                    showStocks = true
-                    makeScreen(productsFilter(products!!,skeyword),showStocks)
-                    item.title = "すべての在庫を表示"
+                    Log.i("off",showStocks.toString())
+                    Toast.makeText(this,"すべての在庫を表示", Toast.LENGTH_SHORT).show()
+                    showStocks = false
+                    makeScreen(productsFilter(products!!, skeyword, sortmode),showStocks)
+                    item.title = "在庫ありのみを表示"
                 } else {
                     //Off
-                    Log.i("off",onlystock.toString())
-                    Toast.makeText(this,"すべての在庫を表示", Toast.LENGTH_SHORT).show()
-                    onlystock = true
-                    showStocks = false
-                    makeScreen(productsFilter(products!!, skeyword),showStocks)
-                    item.title = "在庫ありのみを表示"
+
+                    Log.i("on",showStocks.toString())
+                    Toast.makeText(this,"在庫ありのみを表示", Toast.LENGTH_SHORT).show()
+                    showStocks = true
+                    makeScreen(productsFilter(products!!,skeyword, sortmode),showStocks)
+                    item.title = "すべての在庫を表示"
                 }
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun pullDownMenu() {
+        val spinnerItems = arrayOf("商品名", "値段が安い順", "値段が高い順")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, spinnerItems)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (parent?.selectedItem as String) {
+                    "商品名" -> {
+                        sortmode = PRODUCTNAME
+                        makeScreen(products!!,showStocks)
+                    }
+                    "値段が安い順" -> {
+                        sortmode = CHEAPPRICE
+                        makeScreen(productsFilter(priceSort(products), skeyword, sortmode),showStocks)
+                    }
+                    "値段が高い順" -> {
+                        sortmode = EXPENSIVEPRICE
+                        makeScreen(productsFilter(priceSort(products).reversed(), skeyword, sortmode),showStocks)
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+    }
+
+    private fun priceSort(products: List<Product>?) : List<Product> {
+        return products!!.sortedBy { it.price }
     }
 
 //    private fun ProductImage() : View? {
