@@ -1,4 +1,4 @@
-package com.sample.katsupay.signin_up
+package com.sample.katsupay.activity
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import com.sample.katsupay.R
-import com.sample.katsupay.data.data.QRCodeData
+import com.sample.katsupay.data.QRCodeData
 
 class ScanQRCode : AppCompatActivity() {
     companion object {

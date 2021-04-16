@@ -1,9 +1,8 @@
-package com.sample.katsupay
+package com.sample.katsupay.activity
 
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,9 +10,10 @@ import android.view.Gravity
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
+import com.sample.katsupay.R
 import com.sample.katsupay.communication.CommServer
 import com.sample.katsupay.data.JsonParser
-import com.sample.katsupay.data.data.StoreInfo
+import com.sample.katsupay.data.StoreInfo
 import kotlinx.android.synthetic.main.all_stores.*
 import java.net.HttpURLConnection
 
@@ -43,7 +43,7 @@ class AllStores : AppCompatActivity() {
 //                bt.setBackgroundColor(Color.BLUE)
                 bt.setOnClickListener {
                     StoreInfo.storeId = it.id.toString()
-                    val stocks = Intent(this,StoreStock::class.java)
+                    val stocks = Intent(this, StoreStock::class.java)
                     startActivity(stocks)
                 }
                 bt.textSize = 20f

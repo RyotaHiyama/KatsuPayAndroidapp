@@ -1,4 +1,4 @@
-package com.sample.katsupay.signin_up
+package com.sample.katsupay.activity
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,7 @@ import com.sample.katsupay.*
 import com.sample.katsupay.communication.CommServer
 import com.sample.katsupay.data.DataChecker
 import com.sample.katsupay.data.JsonParser
-import com.sample.katsupay.data.data.UserInfo
+import com.sample.katsupay.data.UserInfo
 import kotlinx.android.synthetic.main.sign_in.*
 import java.net.HttpURLConnection
 
@@ -48,7 +48,7 @@ class SignIn : AppCompatActivity() {
         }
 
         store_stock.setOnClickListener {
-            val alstores =Intent(this,AllStores::class.java)
+            val alstores =Intent(this, AllStores::class.java)
             startActivity(alstores)
         }
 

@@ -1,4 +1,4 @@
-package com.sample.katsupay.data.data
+package com.sample.katsupay.data
 
 import com.google.zxing.integration.android.IntentResult
 

@@ -1,7 +1,7 @@
-package com.sample.katsupay.data.data
+package com.sample.katsupay.data
 
-import com.sample.katsupay.Password
-import com.sample.katsupay.data.transData.Customer
+import com.sample.katsupay.activity.Password
+import com.sample.katsupay.communication.data.Customer
 
 open class UserInfo {
     companion object {
@@ -19,24 +19,24 @@ open class UserInfo {
         }
 
         fun initialize(id:String, mail:String, birthday:String, pass:String) {
-            this.customer_id = id
-            this.email = mail
-            this.birthday = birthday
-            this.initPassword(pass)
+            customer_id = id
+            email = mail
+            Companion.birthday = birthday
+            initPassword(pass)
         }
 
         fun initialize(customer: Customer) {
-            this.customer_id = customer.customerId
-            this.email = customer.email
-            this.birthday = customer.birthday
-            this.initPassword(customer.password)
+            customer_id = customer.customerId
+            email = customer.email
+            birthday = customer.birthday
+            initPassword(customer.password)
         }
 
         fun delete() {
-            this.customer_id = null
-            this.email = ""
-            this.birthday = ""
-            this.password = null
+            customer_id = null
+            email = ""
+            birthday = ""
+            password = null
         }
 
         fun getPassword() : String {

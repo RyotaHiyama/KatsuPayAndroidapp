@@ -1,13 +1,13 @@
-package com.sample.katsupay
+package com.sample.katsupay.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.sample.katsupay.R
 import com.sample.katsupay.communication.CommServer
-import com.sample.katsupay.data.data.UserInfo
-import com.sample.katsupay.signin_up.SignIn
+import com.sample.katsupay.data.UserInfo
 import kotlinx.android.synthetic.main.main_activity.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         SSbutton.setOnClickListener {
-            val alstores =Intent(this,AllStores::class.java)
+            val alstores =Intent(this, AllStores::class.java)
             startActivity(alstores)
         }
 

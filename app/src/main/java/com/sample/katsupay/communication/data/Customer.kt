@@ -1,7 +1,7 @@
-package com.sample.katsupay.data.transData
+package com.sample.katsupay.communication.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import com.sample.katsupay.data.data.UserInfo
+import com.sample.katsupay.data.UserInfo
 import kotlin.system.exitProcess
 
 data class Customer(

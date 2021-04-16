@@ -1,4 +1,4 @@
-package com.sample.katsupay
+package com.sample.katsupay.activity
 
 internal class Password(pass: String) {
     private var password:String = pass

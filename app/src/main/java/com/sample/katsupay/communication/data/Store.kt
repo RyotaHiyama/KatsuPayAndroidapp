@@ -1,4 +1,4 @@
-package com.sample.katsupay.data.transData
+package com.sample.katsupay.communication.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
 

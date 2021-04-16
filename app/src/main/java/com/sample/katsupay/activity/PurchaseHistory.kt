@@ -1,9 +1,10 @@
-package com.sample.katsupay
+package com.sample.katsupay.activity
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.sample.katsupay.R
 import com.sample.katsupay.communication.CommServer
 import com.sample.katsupay.data.JsonParser
 import kotlinx.android.synthetic.main.purchase_history.*

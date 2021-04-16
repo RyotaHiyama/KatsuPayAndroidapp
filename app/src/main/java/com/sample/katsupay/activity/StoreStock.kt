@@ -1,6 +1,5 @@
-package com.sample.katsupay
+package com.sample.katsupay.activity
 
-import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,9 +13,10 @@ import android.widget.ArrayAdapter
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.sample.katsupay.R
 import com.sample.katsupay.communication.CommServer
 import com.sample.katsupay.data.JsonParser
-import com.sample.katsupay.data.transData.Product
+import com.sample.katsupay.communication.data.Product
 import kotlinx.android.synthetic.main.store_stock.*
 import java.net.HttpURLConnection
 
@@ -107,6 +107,7 @@ class StoreStock : AppCompatActivity() {
     private fun sortFiler(products: List<Product>, mode: Int): List<Product>? {
         return when (mode) {
             PRODUCTNAME -> {
+//                nameSort(products)
                 products
             }
             CHEAPPRICE -> {
@@ -249,6 +250,10 @@ class StoreStock : AppCompatActivity() {
     private fun priceSort(products: List<Product>?) : List<Product> {
         return products!!.sortedBy { it.price }
     }
+
+//    private fun nameSort(products: List<Product>?) : List<Product> {
+//        return products!!.sortedBy { it.name }
+//    }
 
 //    private fun ProductImage() : View? {
 //       return pro1000duct_image.setImageResource(R.mipmap.ic_launcher)

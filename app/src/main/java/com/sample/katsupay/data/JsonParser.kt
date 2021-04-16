@@ -3,10 +3,10 @@ package com.sample.katsupay.data
 import android.util.Log
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.sample.katsupay.data.transData.Customer
-import com.sample.katsupay.data.transData.Product
-import com.sample.katsupay.data.transData.Store
-import com.sample.katsupay.data.transData.Transaction
+import com.sample.katsupay.communication.data.Customer
+import com.sample.katsupay.communication.data.Product
+import com.sample.katsupay.communication.data.Store
+import com.sample.katsupay.communication.data.Transaction
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -36,7 +36,7 @@ object JsonParser {
         return if(str == "") null
         else {
             val mapper = jacksonObjectMapper()
-            val customer:Customer = mapper.readValue(str)
+            val customer: Customer = mapper.readValue(str)
             customer
         }
     }

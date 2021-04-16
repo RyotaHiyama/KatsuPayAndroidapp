@@ -1,9 +1,10 @@
-package com.sample.katsupay
+package com.sample.katsupay.activity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.sample.katsupay.data.data.UserInfo
+import com.sample.katsupay.R
+import com.sample.katsupay.data.UserInfo
 import kotlinx.android.synthetic.main.registration_information.*
 
 class RegistrationInformation : AppCompatActivity() {

@@ -4,9 +4,9 @@ import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.sample.katsupay.data.data.StoreInfo
-import com.sample.katsupay.data.data.UserInfo
-import com.sample.katsupay.data.transData.Customer
+import com.sample.katsupay.data.StoreInfo
+import com.sample.katsupay.data.UserInfo
+import com.sample.katsupay.communication.data.Customer
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader

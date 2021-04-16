@@ -1,7 +1,6 @@
-package com.sample.katsupay.data.data
+package com.sample.katsupay.data
 
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.sample.katsupay.Password
+import com.sample.katsupay.activity.Password
 
 open class StoreInfo {
     companion object {
