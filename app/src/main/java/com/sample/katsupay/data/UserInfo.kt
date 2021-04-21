@@ -5,9 +5,9 @@ import com.sample.katsupay.communication.data.Customer
 
 object UserInfo {
         private var password: Password? = null // パスワード
-        var customer_id: String? = null // サーバアクセス用のID
-        var email = "" // Eメールアドレス
-        var birthday = "" // 誕生日
+        var customer_id: String?        = null // サーバアクセス用のID
+        var email                       = "" // Eメールアドレス
+        var birthday                    = "" // 誕生日
 
         fun initPassword(pass:String) : Boolean {
             return if(password != null) false
@@ -19,16 +19,16 @@ object UserInfo {
 
         fun initialize(customer: Customer) {
             customer_id = customer.customerId
-            email = customer.email
-            birthday = customer.birthday
+            email       = customer.email
+            birthday    = customer.birthday
             initPassword(customer.password)
         }
 
         fun delete() {
             customer_id = null
-            email = ""
-            birthday = ""
-            password = null
+            email       = ""
+            birthday    = ""
+            password    = null
         }
 
         fun getPassword() : String {
