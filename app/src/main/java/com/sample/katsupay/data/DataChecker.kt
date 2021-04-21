@@ -31,8 +31,6 @@ object DataChecker {
                 .show()
             false
         }
-
-        return true
     }
 
     /* ユーザが広島市立大学の学生であることを仮定し"7文字の数字"でチェック */
