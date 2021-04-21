@@ -12,12 +12,12 @@ data class Transaction(
 ) {
     override fun toString() : String {
         var prods = ""
-        if(products != null) {
+        return if(products != null) {
             products.forEach {
-                prods += "${it.toString()}, "
+                prods += "$it, "
             }
             prods = prods.substring(0, prods.length - 2)
-            return "顧客ID：$customerId\n購入店舗ID：$storeId\n時間：$time\n取引金額：$price\n購入商品：$prods\n"
-        } else return "顧客ID：$customerId\n購入店舗ID：$storeId\n時間：$time\nチャージ金額：$price\n"
+            "顧客ID：$customerId\n購入店舗ID：$storeId\n時間：$time\n取引金額：$price\n購入商品：$prods\n"
+        } else "顧客ID：$customerId\n購入店舗ID：$storeId\n時間：$time\nチャージ金額：$price\n"
     }
 }
