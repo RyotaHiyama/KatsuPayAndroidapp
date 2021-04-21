@@ -3,8 +3,7 @@ package com.sample.katsupay.data
 import com.sample.katsupay.activity.Password
 import com.sample.katsupay.communication.data.Customer
 
-open class UserInfo {
-    companion object {
+object UserInfo {
         private var password: Password? = null // パスワード
         var customer_id: String? = null // サーバアクセス用のID
         var email = "" // Eメールアドレス
@@ -16,13 +15,6 @@ open class UserInfo {
                 password = Password(pass)
                 true
             }
-        }
-
-        fun initialize(id:String, mail:String, birthday:String, pass:String) {
-            customer_id = id
-            email = mail
-            Companion.birthday = birthday
-            initPassword(pass)
         }
 
         fun initialize(customer: Customer) {
@@ -43,5 +35,4 @@ open class UserInfo {
             val pass = password ?: return ""
             return pass.getPassword()
         }
-    }
 }
