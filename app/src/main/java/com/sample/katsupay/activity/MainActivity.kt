@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         val commServer = CommServer()
         commServer.setUrl(CommServer.GET_CUSTOMER_INFO)
         commServer.execute(CommServer.UB)
-        while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
+        while(commServer.responseCode == -1) { /* wait for response */ }
         val balance = commServer.get()
         return if(balance.isEmpty()) "0" else balance
     }

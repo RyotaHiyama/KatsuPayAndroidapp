@@ -57,15 +57,15 @@ class PurchaseHistory : AppCompatActivity() {
         commServer.setUrl(CommServer.GET_PURCHASE)
         commServer.execute(CommServer.UB)
 
-        while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
+        while(commServer.responseCode == -1) { /* wait for response */ }
 
-        if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK) {
+        if(commServer.responseCode == HttpURLConnection.HTTP_OK) {
             Log.i("purchase>>>", commServer.get())
             return commServer.get()
         } else {
             AlertDialog.Builder(this)
                 .setTitle("●通信失敗")
-                .setMessage("購入情報が取得できませんでした：${commServer.RESPONSE_CODE}")
+                .setMessage("購入情報が取得できませんでした：${commServer.responseCode}")
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
         }

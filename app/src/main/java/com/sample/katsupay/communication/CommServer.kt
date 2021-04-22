@@ -40,14 +40,14 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
 //    private val port = "8090"
     private val ipAddress = "10.0.2.2" //androidエミュレータからホストに対するアドレス
     private val port = "8080" //androidエミュレータとホスト間で通信する時のデフォルトポート
-    private var REQUEST = ""
-    private var URL = ""
+    private var request = ""
+    private var url = ""
     private var postData = ""
-    var RESPONSE_CODE = -1
+    var responseCode = -1
 
     private fun setRequest(req:String) {
         if(req == GET || req == POST) {
-            this.REQUEST = req
+            this.request = req
         } else {
             Log.e("ERROR", "存在しないリクエストモードです．")
         }
@@ -55,9 +55,9 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
 
     override fun doInBackground(vararg builder: Uri.Builder): String {
         return try {
-            get("127.0.0.1", "UTF-8")
+            get("UTF-8")
         } catch(e:Exception) {
-            RESPONSE_CODE = -2 // timeout
+            responseCode = -2 // timeout
             ""
         }
     }
@@ -66,65 +66,60 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
         when(mode) {
             LOGIN -> {
                 setRequest(POST)
-                URL = "http://$ipAddress:$port/$CUSTOMER/login"
+                url = "http://$ipAddress:$port/$CUSTOMER/login"
                 postData = jacksonObjectMapper().writeValueAsString(Customer.getUserInfoAsCustomer())
             }
             GET_CUSTOMER_INFO -> {
-                UserInfo.customer_id ?: return
                 setRequest(GET)
-                URL = "http://$ipAddress:$port/$ACCOUNT/balance/${UserInfo.customer_id}"
-//                postData = jacksonObjectMapper().writeValueAsString(Customer.getUserInfoAsCustomer())
+                url = "http://$ipAddress:$port/$ACCOUNT/balance/${UserInfo.customer_id}"
             }
             GET_ACCOUNT_INFO -> {
-                UserInfo.customer_id ?: return
                 setRequest(GET)
-                URL = "http://$ipAddress:$port/$CUSTOMER/${UserInfo.customer_id}"
+                url = "http://$ipAddress:$port/$CUSTOMER/${UserInfo.customer_id}"
             }
             GET_PURCHASE -> {
-                UserInfo.customer_id ?: return
                 setRequest(GET)
-                URL = "http://$ipAddress:$port/$TRANSACTION/$CUSTOMER/${UserInfo.customer_id}"
+                url = "http://$ipAddress:$port/$TRANSACTION/$CUSTOMER/${UserInfo.customer_id}"
             }
             SIGN_UP -> {
-                UserInfo.customer_id ?: return
                 setRequest(POST)
-                URL = "http://$ipAddress:$port/$CUSTOMER/signup/${UserInfo.customer_id}"
+                url = "http://$ipAddress:$port/$CUSTOMER/signup/${UserInfo.customer_id}"
                 postData = jacksonObjectMapper().writeValueAsString(Customer.getUserInfoAsCustomer())
             }
             GET_STOCK_INFO -> {
                 setRequest(GET)
-                URL = "http://$ipAddress:$port/$PRODUCT/${StoreInfo.storeId}"
+                url = "http://$ipAddress:$port/$PRODUCT/${StoreInfo.storeId}"
             }
             GET_STORE_INFO -> {
                 setRequest(GET)
-                URL = "http://$ipAddress:$port/$STORE/all"
+                url = "http://$ipAddress:$port/$STORE/all"
             }
         }
     }
 
-    operator fun get(endpoint: String, encoding: String): String {
+    private fun get(encoding: String): String {
         val sb = StringBuffer("")
         val esb = StringBuffer("")
         var br: BufferedReader? = null
         var ism: InputStream? = null
         var isr: InputStreamReader? = null
 
-        val url = URL(URL)
-        Log.i("checkAccessURL","Access to URL: ${url.toString()}")
+        val url = URL(url)
+        Log.i("checkAccessURL","Access to URL: $url")
         val huc = url.openConnection() as HttpURLConnection
         huc.run {
             this.connectTimeout = TIMEOUT_MILLIS// 接続にかかる時間
             this.readTimeout = TIMEOUT_MILLIS// データの読み込みにかかる時間
-            this.requestMethod = REQUEST // HTTPメソッド
+            this.requestMethod = request // HTTPメソッド
             this.useCaches = false// キャッシュ利用
-            this.doOutput = (REQUEST == POST) // リクエストのボディの送信を許可(GETのときはfalse,POSTのときはtrueにする)
+            this.doOutput = (request == POST) // リクエストのボディの送信を許可(GETのときはfalse,POSTのときはtrueにする)
             this.doInput = true// レスポンスのボディの受信を許可
 //            this.setRequestProperty("Accept-Language", "jp")
             this.setRequestProperty("Content-Type", "application/json; charset=utf-8")
 
             this.connect()
 
-            if(REQUEST == POST) {
+            if(request == POST) {
                 val outputStream = this.outputStream
                 outputStream.write(postData.toByteArray())
                 outputStream.flush()
@@ -132,8 +127,8 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
             }
 
             val responseCode = this.responseCode
-            RESPONSE_CODE = responseCode
-            Log.i("GET RESPONSE","CODE: $RESPONSE_CODE")
+            this@CommServer.responseCode = responseCode
+            Log.i("GET RESPONSE","CODE: ${this@CommServer.responseCode}")
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 ism = this.inputStream

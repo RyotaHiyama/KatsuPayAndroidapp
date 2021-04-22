@@ -64,15 +64,15 @@ class AllStores : AppCompatActivity() {
         commServer.setUrl(CommServer.GET_STORE_INFO)
         commServer.execute(CommServer.UB)
 
-        while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
+        while(commServer.responseCode == -1) { /* wait for response */ }
 
-        if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK){
+        if(commServer.responseCode == HttpURLConnection.HTTP_OK){
             Log.i("AllStores>>>", commServer.get())
             return commServer.get()
         } else {
             AlertDialog.Builder(this)
                 .setTitle("●通信失敗")
-                .setMessage("店舗情報が取得できませんでした：${commServer.RESPONSE_CODE}")
+                .setMessage("店舗情報が取得できませんでした：${commServer.responseCode}")
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
         }
@@ -84,15 +84,15 @@ class AllStores : AppCompatActivity() {
         commServer.setUrl(CommServer.GET_STOCK_INFO)
         commServer.execute(CommServer.UB)
 
-        while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
+        while(commServer.responseCode == -1) { /* wait for response */ }
 
-        if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK){
+        if(commServer.responseCode == HttpURLConnection.HTTP_OK){
             Log.i("products>>>", commServer.get())
             return commServer.get()
         } else {
             AlertDialog.Builder(this)
                 .setTitle("●通信失敗")
-                .setMessage("在庫情報が取得できませんでした：${commServer.RESPONSE_CODE}")
+                .setMessage("在庫情報が取得できませんでした：${commServer.responseCode}")
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
         }

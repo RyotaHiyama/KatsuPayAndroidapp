@@ -93,8 +93,8 @@ class SignUp : AppCompatActivity() {
         val commServer = CommServer()
         commServer.setUrl(CommServer.LOGIN)
         commServer.execute(CommServer.UB)
-        while(commServer.RESPONSE_CODE == -1) { /* wait for response */ }
-        return commServer.RESPONSE_CODE == 404
+        while(commServer.responseCode == -1) { /* wait for response */ }
+        return commServer.responseCode == 404
     }
 
     private fun signUp() : Boolean {
@@ -102,11 +102,11 @@ class SignUp : AppCompatActivity() {
         commServer.setUrl(CommServer.SIGN_UP)
         commServer.execute(CommServer.UB)
 
-        while(commServer.RESPONSE_CODE == -1) {
+        while(commServer.responseCode == -1) {
             /* wait for response */
         }
 
-        if(commServer.RESPONSE_CODE == HttpURLConnection.HTTP_OK) {
+        if(commServer.responseCode == HttpURLConnection.HTTP_OK) {
             val response = commServer.get()
             return if(response == null) {
                 Toast.makeText(this, "登録できませんでした", Toast.LENGTH_LONG).show()
