@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         SSbutton.setOnClickListener {
-            val alstores =Intent(this, AllStores::class.java)
-            startActivity(alstores)
+            val allstores =Intent(this, AllStores::class.java)
+            startActivity(allstores)
         }
 
         update.setOnClickListener {
@@ -38,20 +38,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         logout.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setMessage("ログアウトしてもよろしいですか？")
-                .setPositiveButton("YES") { _, _ ->
-                    UserInfo.delete()
-                    val intent = Intent(this, SignIn::class.java)
-                    Toast.makeText(this, "ログアウトしました", Toast.LENGTH_LONG).show()
-                    startActivity(intent)
-                }
-                .setNegativeButton("CANCEL") { _, _ -> }
-                .show()
+            isLogout()
         }
     }
 
     override fun onBackPressed() {
+        isLogout()
+    }
+
+    private fun getBalanceFromServer() : String? {
+        val commServer = CommServer()
+        commServer.setUrl(CommServer.GET_CUSTOMER_INFO)
+        commServer.execute(CommServer.UB)
+        while(commServer.responseCode == -1) { /* wait for response */ }
+        val balance = commServer.get()
+        return if(balance.isEmpty()) "0" else balance
+    }
+
+    private fun isLogout() {
         AlertDialog.Builder(this)
             .setMessage("ログアウトしてもよろしいですか？")
             .setPositiveButton("YES") { _, _ ->
@@ -62,14 +66,5 @@ class MainActivity : AppCompatActivity() {
             }
             .setNegativeButton("CANCEL") { _, _ -> }
             .show()
-    }
-
-    private fun getBalanceFromServer() : String? {
-        val commServer = CommServer()
-        commServer.setUrl(CommServer.GET_CUSTOMER_INFO)
-        commServer.execute(CommServer.UB)
-        while(commServer.responseCode == -1) { /* wait for response */ }
-        val balance = commServer.get()
-        return if(balance.isEmpty()) "0" else balance
     }
 }
