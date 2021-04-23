@@ -47,8 +47,8 @@ class SignIn : AppCompatActivity() {
         }
 
         store_stock.setOnClickListener {
-            val alstores =Intent(this, AllStores::class.java)
-            startActivity(alstores)
+            val allstores =Intent(this, AllStores::class.java)
+            startActivity(allstores)
         }
 
         if(!CommServer.isConnected(this)) {
