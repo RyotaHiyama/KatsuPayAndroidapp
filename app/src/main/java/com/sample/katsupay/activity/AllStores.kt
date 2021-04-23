@@ -40,7 +40,6 @@ class AllStores : AppCompatActivity() {
                 val bt = Button(this)
                 bt.id = s.storeId.toInt()
                 bt.backgroundTintList = ColorStateList.valueOf(Color.rgb(228,182,198))
-//                bt.setBackgroundColor(Color.BLUE)
                 bt.setOnClickListener {
                     StoreInfo.storeId = it.id.toString()
                     val stocks = Intent(this, StoreStock::class.java)
@@ -57,7 +56,6 @@ class AllStores : AppCompatActivity() {
             finish()
         }
 
-
     }
     private fun getStore() : String {
         val commServer = CommServer()
@@ -66,36 +64,16 @@ class AllStores : AppCompatActivity() {
 
         while(commServer.responseCode == -1) { /* wait for response */ }
 
-        if(commServer.responseCode == HttpURLConnection.HTTP_OK){
+        return if(commServer.responseCode == HttpURLConnection.HTTP_OK){
             Log.i("AllStores>>>", commServer.get())
-            return commServer.get()
+            commServer.get()
         } else {
             AlertDialog.Builder(this)
                 .setTitle("●通信失敗")
                 .setMessage("店舗情報が取得できませんでした：${commServer.responseCode}")
                 .setPositiveButton("OK") { _, _ -> }
                 .show()
+            ""
         }
-        return ""
-    }
-
-    private fun getProductInfo() : String {
-        val commServer = CommServer()
-        commServer.setUrl(CommServer.GET_STOCK_INFO)
-        commServer.execute(CommServer.UB)
-
-        while(commServer.responseCode == -1) { /* wait for response */ }
-
-        if(commServer.responseCode == HttpURLConnection.HTTP_OK){
-            Log.i("products>>>", commServer.get())
-            return commServer.get()
-        } else {
-            AlertDialog.Builder(this)
-                .setTitle("●通信失敗")
-                .setMessage("在庫情報が取得できませんでした：${commServer.responseCode}")
-                .setPositiveButton("OK") { _, _ -> }
-                .show()
-        }
-        return ""
     }
 }
