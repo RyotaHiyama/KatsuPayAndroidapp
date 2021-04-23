@@ -1,8 +1,10 @@
 package com.sample.katsupay.communication
 
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.sample.katsupay.data.StoreInfo
 import com.sample.katsupay.data.UserInfo
@@ -13,37 +15,46 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
+
 class CommServer : AsyncTask<Uri.Builder, Void, String>() {
     companion object {
         const val TIMEOUT_MILLIS = 5000// タイムアウトまで5秒
 
-        const val CUSTOMER = "customer"
-        const val ACCOUNT = "account"
+        const val CUSTOMER    = "customer"
+        const val ACCOUNT     = "account"
         const val TRANSACTION = "transaction"
-        const val STORE = "store"
-        const val PRODUCT = "product"
+        const val STORE       = "store"
+        const val PRODUCT     = "product"
 
-        const val GET = "GET"
+        const val GET  = "GET"
         const val POST = "POST"
 
-        const val LOGIN = 0
+        const val LOGIN             = 0
         const val GET_CUSTOMER_INFO = 1
-        const val GET_PURCHASE = 2
-        const val SIGN_UP = 3
-        const val GET_ACCOUNT_INFO = 4
-        const val GET_STOCK_INFO = 5
-        const val GET_STORE_INFO = 6
+        const val GET_PURCHASE      = 2
+        const val SIGN_UP           = 3
+        const val GET_ACCOUNT_INFO  = 4
+        const val GET_STOCK_INFO    = 5
+        const val GET_STORE_INFO    = 6
 
         val UB:Uri.Builder = Uri.Builder()
+
+        fun isConnected(activity : AppCompatActivity) : Boolean {
+            val cm = activity.getSystemService(ConnectivityManager::class.java) ?: return false
+            if (cm.allNetworks.isNotEmpty()) {
+                return true
+            }
+            return false
+        }
     }
 //    private val ipAddress = "165.242.108.54"
 //    private val port = "8090"
     private val ipAddress = "10.0.2.2" //androidエミュレータからホストに対するアドレス
-    private val port = "8080" //androidエミュレータとホスト間で通信する時のデフォルトポート
-    private var request = ""
-    private var url = ""
-    private var postData = ""
-    var responseCode = -1
+    private val port      = "8080" //androidエミュレータとホスト間で通信する時のデフォルトポート
+    private var request   = ""
+    private var url       = ""
+    private var postData  = ""
+    var responseCode      = -1
 
     private fun setRequest(req:String) {
         if(req == GET || req == POST) {
@@ -152,5 +163,4 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
         }
         return sb.toString()
     }
-
 }

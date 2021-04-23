@@ -2,7 +2,6 @@ package com.sample.katsupay.activity
 
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -52,7 +51,7 @@ class SignIn : AppCompatActivity() {
             startActivity(alstores)
         }
 
-        if(!checkCommStatus()) {
+        if(!CommServer.isConnected(this)) {
             val intent = Intent(this, Reconnect::class.java)
             startActivity(intent)
         }
@@ -71,20 +70,11 @@ class SignIn : AppCompatActivity() {
 
         if(commServer.responseCode == HttpURLConnection.HTTP_OK) {
             val response = commServer.get() ?: return false
-//            if(response == null) {
-//                AlertDialog.Builder(this)
-//                    .setTitle("●サインイン失敗")
-//                    .setMessage("ユーザ名もしくはパスワードが間違っています：${commServer.RESPONSE_CODE}")
-//                    .setPositiveButton("OK") { _, _ -> }
-//                    .show()
-//                return
-//            }
-
-                    Log.i("RETURN VALUE FROM SERVER", " VALUE: $response")
-                    if(response != "null") {
-                        val customer = JsonParser.customerParse(response)
-                        return if(customer == null) {
-                            Toast.makeText(this, "ログインの際にサーバから予期せぬメッセージを受信しました", Toast.LENGTH_LONG).show()
+            Log.i("RETURN VALUE FROM SERVER", " VALUE: $response")
+            if(response != "null") {
+                val customer = JsonParser.customerParse(response)
+                return if(customer == null) {
+                    Toast.makeText(this, "ログインの際にサーバから予期せぬメッセージを受信しました", Toast.LENGTH_LONG).show()
                     false
                 } else {
                     UserInfo.initialize(customer)
@@ -109,14 +99,6 @@ class SignIn : AppCompatActivity() {
             .setMessage("ユーザ名もしくはパスワードが間違っています")
             .setPositiveButton("OK") { _, _ -> }
             .show()
-    }
-
-    private fun checkCommStatus() : Boolean {
-        val cm = getSystemService(ConnectivityManager::class.java) ?: return false
-        if (cm.allNetworks.isNotEmpty()) {
-            return true
-        }
-        return false
     }
 
     private fun checkCorrectEntered(userName:String, password:String) : Boolean {
