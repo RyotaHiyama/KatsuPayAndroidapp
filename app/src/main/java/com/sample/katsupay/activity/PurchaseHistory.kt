@@ -21,11 +21,7 @@ class PurchaseHistory : AppCompatActivity() {
         val transactions = JsonParser.transactionParse(str)
 
         if(transactions == null) {
-            AlertDialog.Builder(this)
-                .setTitle("●通信失敗")
-                .setMessage("購入情報が取得できませんでした")
-                .setPositiveButton("OK") { _, _ -> }
-                .show()
+            purchaseAlert()
             finish()
         } else {
             if(transactions.isEmpty()) {
@@ -39,15 +35,13 @@ class PurchaseHistory : AppCompatActivity() {
             var counter = 1
             transactions.forEach {
                 purchase.text = "${purchase.text}===== 取引情報[$counter] =====\n"
-                purchase.text = "${purchase.text}${it.toString()}\n"
+                purchase.text = "${purchase.text}$it\n"
                 counter++
             }
+        }
 
-//            purchase.text = getPurchase()
-
-            PurchaseReturnButton.setOnClickListener {
-                finish()
-            }
+        PurchaseReturnButton.setOnClickListener {
+            finish()
         }
     }
 
@@ -59,16 +53,21 @@ class PurchaseHistory : AppCompatActivity() {
 
         while(commServer.responseCode == -1) { /* wait for response */ }
 
-        if(commServer.responseCode == HttpURLConnection.HTTP_OK) {
+        return if(commServer.responseCode == HttpURLConnection.HTTP_OK) {
             Log.i("purchase>>>", commServer.get())
-            return commServer.get()
+            commServer.get()
         } else {
-            AlertDialog.Builder(this)
-                .setTitle("●通信失敗")
-                .setMessage("購入情報が取得できませんでした：${commServer.responseCode}")
-                .setPositiveButton("OK") { _, _ -> }
-                .show()
+            purchaseAlert()
+            ""
         }
-        return ""
+    }
+
+    private fun purchaseAlert(){
+        val commServer = CommServer()
+        AlertDialog.Builder(this)
+            .setTitle("●通信失敗")
+            .setMessage("購入情報が取得できませんでした：${commServer.responseCode}")
+            .setPositiveButton("OK") { _, _ -> }
+            .show()
     }
 }
