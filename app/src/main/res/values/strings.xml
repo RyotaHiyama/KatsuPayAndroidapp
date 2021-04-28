@@ -35,4 +35,5 @@
     <string name="検索なし">該当データがありません</string>
     <string name="検索">商品名を検索</string>
     <string name="並び替え">並び替え</string>
+    <string name="ログアウト">ログアウト</string>
 </resources>
