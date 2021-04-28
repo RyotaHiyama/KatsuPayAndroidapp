@@ -15,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        balance.text = getBalanceFromServer() + " 円"
+        balance.text = "残高：" + getBalanceFromServer() + " 円"
+        username.text = UserInfo.customer_id + "様"
 
         purchaseHistoryButton.setOnClickListener {
             val intent = Intent(this, PurchaseHistory::class.java)
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         update.setOnClickListener {
-            balance.text = getBalanceFromServer() + " 円"
+            balance.text = "残高：" + getBalanceFromServer() + " 円"
             Toast.makeText(this, "更新完了", Toast.LENGTH_LONG).show()
         }
 
