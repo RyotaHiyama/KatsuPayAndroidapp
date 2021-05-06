@@ -14,15 +14,17 @@
             android:id="@+id/guideline" />
 
     <TextView
-            android:text="(ユーザ名)様"
+            android:text="@string/ユーザ名様"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/username"
             android:textSize="30sp"
+            android:layout_marginStart="10dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
+            android:text="@string/残高"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="40sp"
@@ -100,7 +102,7 @@
                 android:id="@+id/SSbutton"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                android:backgroundTint="#F6D0DE"
+                android:backgroundTint="#40F6D0DE"
                 android:textColor="#F180A8"
                 android:layout_weight="1" />
     </LinearLayout>
