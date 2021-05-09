@@ -1,36 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.SignUp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.Guideline
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline1"
+            app:layout_constraintGuide_percent="0.15"/>
+
+    <androidx.constraintlayout.widget.Guideline
             android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline2"
+            app:layout_constraintGuide_percent="0.05"/>
+
+    <Button
+            android:text="@string/戻る"
+            android:layout_width="70sp"
+            android:layout_height="45dp"
+            android:textSize="20sp"
+            android:id="@+id/signUpReturn"
+            android:backgroundTint="#FFC107"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@id/guideline1"/>
+
+    <TextView
+            android:text="@string/新規登録"
             android:layout_width="match_parent"
-            android:layout_height="35sp">
-
-        <Button
-                android:text="@string/戻る"
-                android:layout_width="70sp"
-                android:layout_height="match_parent"
-                android:textSize="20sp"
-                android:id="@+id/signUpReturn"
-                android:background="#FFC107" />
-
-        <TextView
-                android:text="@string/新規登録"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:background="#34FFC107"
-                android:id="@+id/SignUpTitle" />
-    </LinearLayout>
+            android:layout_height="35dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="#34FFC107"
+            android:id="@+id/SignUpTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline2"
+            app:layout_constraintLeft_toLeftOf="@id/guideline1"
+            app:layout_constraintRight_toRightOf="parent"/>
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_marginTop="35dp"
+            android:isScrollContainer="false"
+            app:layout_constraintTop_toTopOf="@id/guideline2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
                 android:orientation="vertical"
@@ -192,10 +217,10 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:id="@+id/SignUpDecide"
-                        android:background="#7CFF9800" />
+                        android:backgroundTint="#7CFF9800" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
