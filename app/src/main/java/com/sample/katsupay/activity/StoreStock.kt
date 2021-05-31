@@ -201,7 +201,6 @@ class StoreStock : AppCompatActivity() {
                     item.title = "在庫ありのみを表示"
                 } else {
                     //Off
-
                     Log.i("on",showStocks.toString())
                     Toast.makeText(this,"在庫ありのみを表示", Toast.LENGTH_SHORT).show()
                     showStocks = true
@@ -229,7 +228,8 @@ class StoreStock : AppCompatActivity() {
                 when (parent?.selectedItem as String) {
                     "商品名" -> {
                         sortmode = PRODUCTNAME
-                        makeScreen(products!!,showStocks)
+//                        makeScreen(products!!,showStocks)
+                        makeScreen(productsFilter(nameSort(products), skeyword, sortmode),showStocks)
                     }
                     "値段が安い順" -> {
                         sortmode = CHEAPPRICE
@@ -242,8 +242,7 @@ class StoreStock : AppCompatActivity() {
                 }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
@@ -251,9 +250,9 @@ class StoreStock : AppCompatActivity() {
         return products!!.sortedBy { it.price }
     }
 
-//    private fun nameSort(products: List<Product>?) : List<Product> {
-//        return products!!.sortedBy { it.name }
-//    }
+    private fun nameSort(products: List<Product>?) : List<Product> {
+        return products!!.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER, {it.name}))
+    }
 
 //    private fun ProductImage() : View? {
 //       return pro1000duct_image.setImageResource(R.mipmap.ic_launcher)
