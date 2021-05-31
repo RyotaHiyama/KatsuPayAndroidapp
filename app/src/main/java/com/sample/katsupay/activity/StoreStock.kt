@@ -31,10 +31,6 @@ class StoreStock : AppCompatActivity() {
     private var skeyword:String = ""
     private var sortmode:Int = PRODUCTNAME
 
-
-
-//    private val spinnerItems = arrayOf("商品名","値段が安い順","値段が高い順")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.store_stock)
@@ -58,8 +54,6 @@ class StoreStock : AppCompatActivity() {
                     .setPositiveButton("OK") { _, _ -> finish() }
                     .show()
             }
-
-//            makeScreen(products!!,showStocks)
             pullDownMenu()
         }
 
@@ -90,6 +84,7 @@ class StoreStock : AppCompatActivity() {
         return ""
     }
 
+    //在庫の数によって3段階で表示
     private fun judgeStock(Stock:Int) : String {
         return when {
             Stock <= 0 -> {
@@ -104,11 +99,11 @@ class StoreStock : AppCompatActivity() {
         }
     }
 
+    //現在どの並べ替えがされているか
     private fun sortFiler(products: List<Product>, mode: Int): List<Product>? {
         return when (mode) {
             PRODUCTNAME -> {
-//                nameSort(products)
-                products
+                nameSort(products)
             }
             CHEAPPRICE -> {
                 priceSort(products)
@@ -120,6 +115,7 @@ class StoreStock : AppCompatActivity() {
         }
     }
 
+    //検索機能
     fun productsFilter(products: List<Product>, keyword: String, mode: Int) : List<Product>? {
         val hitProducts:MutableList<Product> = arrayListOf()
         if (keyword.isEmpty()) return sortFiler(products, mode)
@@ -166,6 +162,7 @@ class StoreStock : AppCompatActivity() {
         return true
     }
 
+    //在庫を表示
     private fun makeScreen(products: List<Product>?, mode :Boolean) { //1: show only in stock  else: show stock
         if(products == null){
             stockinfo.text = getString(R.string.検索なし)
@@ -246,10 +243,12 @@ class StoreStock : AppCompatActivity() {
         }
     }
 
+    //値段で並べ替え
     private fun priceSort(products: List<Product>?) : List<Product> {
         return products!!.sortedBy { it.price }
     }
 
+    //名前で並べ替え
     private fun nameSort(products: List<Product>?) : List<Product> {
         return products!!.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER, {it.name}))
     }
