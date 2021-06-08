@@ -15,7 +15,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".activity.AllStores"></activity>
+        <activity android:name=".activity.AllStores" />
         <activity android:name=".activity.StoreStock" />
         <activity android:name=".activity.SignIn">
             <intent-filter>
@@ -40,6 +40,7 @@
                 tools:ignore="DuplicateActivity" />
         <activity android:name=".activity.AllStores"
                 tools:ignore="DuplicateActivity" />
+        <activity android:name=".activity.CustomerQR"/>
     </application>
 
 </manifest>

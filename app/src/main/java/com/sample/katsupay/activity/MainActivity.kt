@@ -41,6 +41,12 @@ class MainActivity : AppCompatActivity() {
         logout.setOnClickListener {
             isLogout()
         }
+
+        CQRbutton.setOnClickListener {
+            val cqr = Intent(this, CustomerQR::class.java)
+            startActivity(cqr)
+        }
+
     }
 
     override fun onBackPressed() {
