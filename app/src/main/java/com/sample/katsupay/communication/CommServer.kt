@@ -9,6 +9,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.sample.katsupay.data.StoreInfo
 import com.sample.katsupay.data.UserInfo
 import com.sample.katsupay.communication.data.Customer
+import com.sample.katsupay.communication.data.Transaction
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -25,6 +26,7 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
         const val TRANSACTION = "transaction"
         const val STORE       = "store"
         const val PRODUCT     = "product"
+//        const val TRANSFER    = "transfer"
 
         const val GET  = "GET"
         const val POST = "POST"
@@ -36,6 +38,7 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
         const val GET_ACCOUNT_INFO  = 4
         const val GET_STOCK_INFO    = 5
         const val GET_STORE_INFO    = 6
+//        const val SEND_MONEY_CS     = 7
 
         val UB:Uri.Builder = Uri.Builder()
 
@@ -105,6 +108,11 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
                 setRequest(GET)
                 url = "http://$ipAddress:$port/$STORE/all"
             }
+//            SEND_MONEY_CS -> {
+//                setRequest(POST)
+//                url = "http://$ipAddress:$port/$TRANSFER/ctos"
+//                postData = jacksonObjectMapper().writeValueAsString(Transaction.getUserInfoTransaction())
+//            }
         }
     }
 
