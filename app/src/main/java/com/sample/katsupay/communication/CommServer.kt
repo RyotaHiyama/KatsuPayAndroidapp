@@ -10,6 +10,7 @@ import com.sample.katsupay.data.StoreInfo
 import com.sample.katsupay.data.UserInfo
 import com.sample.katsupay.communication.data.Customer
 import com.sample.katsupay.communication.data.Transaction
+import com.sample.katsupay.data.ProductInfo
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -38,6 +39,7 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
         const val GET_ACCOUNT_INFO  = 4
         const val GET_STOCK_INFO    = 5
         const val GET_STORE_INFO    = 6
+        const val GET_STOCK_IMAGE   = 7
 //        const val SEND_MONEY_CS     = 7
 
         val UB:Uri.Builder = Uri.Builder()
@@ -107,6 +109,10 @@ class CommServer : AsyncTask<Uri.Builder, Void, String>() {
             GET_STORE_INFO -> {
                 setRequest(GET)
                 url = "http://$ipAddress:$port/$STORE/all"
+            }
+            GET_STOCK_IMAGE -> {
+                setRequest(GET)
+                url = "http://$ipAddress:$port/$PRODUCT/image/${ProductInfo.product_id}"
             }
 //            SEND_MONEY_CS -> {
 //                setRequest(POST)

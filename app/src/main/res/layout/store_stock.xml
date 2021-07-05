@@ -6,7 +6,6 @@
         android:layout_height="match_parent"
         tools:context=".activity.StoreStock">
 
-
     <androidx.constraintlayout.widget.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -63,7 +62,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/spinner"
             android:layout_marginTop="35dp"
-            android:layout_marginLeft="90dp"
+            android:layout_marginStart="90dp"
             android:backgroundTint="#005500"
             app:layout_constraintTop_toTopOf="@id/textView11"
             app:layout_constraintLeft_toLeftOf="@id/sorttext"/>
@@ -76,19 +75,11 @@
             android:id="@+id/scrollview">
 
         <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="3"
                 android:id="@+id/ll">
-
-            <TextView
-                    android:text="@string/在庫情報なし"
-                    android:textSize="25sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/stockinfo"
-                    android:layout_weight="2" />
 
         </LinearLayout>
     </ScrollView>
